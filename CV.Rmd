@@ -1,0 +1,92 @@
+---
+name: Darwin
+surname: Cubi
+date: "`r format(Sys.time(), '%B, %Y')`"
+qualifications: 
+address: Quito, Ecuador
+position: "Data Scientist | Actuary"
+profilepic: FOTO.png
+phone: 0996597844
+email: darwin.cubi@gmail.com
+github: darwinc
+linkedin: Darwin-C-V
+www: darwincubi.rbind.io
+header-includes:
+  - \setstretch{1.15}
+headcolor: 3B9DE1
+output: vitae::awesomecv
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+library(dplyr)
+library(magrittr)
+source("Utils/data_download_funs.R")
+
+CV <- create_CV_object(
+  data_location = "https://docs.google.com/spreadsheets/d/1AN85IIvbcMnGbcOCX3jurB4fMOp_niAUbDBU_zfjFEw/edit?usp=sharing",  
+  pdf_mode = FALSE
+)
+```
+
+\vspace*{0.5cm}
+
+```{r, results='asis'}
+CV %<>% print_text_block("intro") 
+```
+
+# Education
+
+```{r}
+CV$entries_data %>% 
+  filter(section == 'education') %>% 
+  detailed_entries(
+    what = institution,
+    when = glue::glue("{`start`} - {`end`}"),
+    with = title,
+    where = loc,
+    why = description_bullets
+  )
+```
+
+# Employment
+
+```{r}
+CV$entries_data %>% 
+  filter(section == 'industry_positions') %>% 
+  detailed_entries(
+    what = institution,
+    when = glue::glue("{`start`} - {`end`}"),
+    with = title,
+    where = loc,
+    why = description_bullets
+  )
+```
+
+# Certifications
+
+```{r}
+CV$entries_data %>% 
+  filter(section == 'courses') %>% 
+  detailed_entries(
+    what = institution,
+    when = glue::glue("{`start`}"),
+    with = title,
+    where = loc,
+    why = description_bullets
+  )
+```
+
+# Skills
+
+```{r, results='asis'}
+CV %>% print_skill()
+```
+
+# Blog Medium 
+
+```{r, results='asis'}
+CV %<>% print_post()
+```
