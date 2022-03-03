@@ -11,7 +11,7 @@ separating the content from the output by treating entries as data.
 ## Clone repo 
 
 ``` bash
-git clone https://github.com/nstrayer/datadrivencv.git
+git clone https://github.com/DarwinCV/automated-CV.git
 ```
 
 # Motivation
